@@ -7,7 +7,7 @@ from recipesingredients.models import RecipeIngredient
 # Create your views here.
 class IngredientListView(ListView):           #class-based view
    model = Ingredient                         #specify model
-   template_name = 'ingredients/main.html'    #specify template 
+   template_name = 'ingredients/list.html'    #specify template 
 
 class IngredientDetailView(DetailView):  # class-based view
     model = Ingredient  # specify model

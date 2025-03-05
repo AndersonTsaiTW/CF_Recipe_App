@@ -14,7 +14,7 @@ def home(request):
 # The list of all recipes
 class RecipeListView(ListView):  # class-based view
     model = Recipe  # specify model
-    template_name = 'recipes/main.html'  # specify template
+    template_name = 'recipes/list.html'  # specify template
 
 # The detail of recipe
 class RecipeDetailView(DetailView):  # class-based view
