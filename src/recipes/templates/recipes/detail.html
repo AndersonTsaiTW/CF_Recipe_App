@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<h2>Details: {{object.name}}</h2>
+<img src="{{object.pic.url}}" height="300" /><br>
+
+<b>Title: </b> {{object.name}}  <br>
+
+<b>Author: </b> {{object.created_by}} <br>
+
+<b>created_at: </b> {{object.created_at}} <br>
+
+<b>cooking_time: </b> {{object.cooking_time}} <br>
+
+<b>ingredient_num: </b> {{object.ingredient_num}} <br>
+
+<b>difficulty: </b> {{object.difficulty}} <br>
+
+<h3>Ingredients:</h3>
+<ul>
+  {% for ingredient in ingredients %}
+    <li>{{ ingredient.ingredient.name }} - {{ ingredient.quantity }}</li>
+  {% empty %}
+    <li>No ingredients listed.</li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<h2>Details: {{object.name}}</h2>
+<img src="{{object.pic.url}}" height="300" /><br>
+
+<b>Title: </b> {{object.name}}  <br>
+
+<b>Introduction: </b> {{object.introduction}} <br>
+
+<h3>Related Recipes:</h3>
+<ul>
+  {% for recipe in recipes %}
+  <a href="{% url 'recipes:recipe-detail' recipe.recipe.id %}">
+    {{ recipe.recipe.name }}
+  </a>
+  {% empty %}
+    <li>No recipe listed.</li>
+  {% endfor %}
+</ul>
