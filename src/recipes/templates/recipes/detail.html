@@ -1,25 +1,38 @@
-<!DOCTYPE html>
-<h2>Details: {{object.name}}</h2>
-<a href="{%url 'logout_success' %}"> Logout </a> <br />
-<img src="{{object.pic.url}}" height="300" /><br>
+{% extends 'base.html' %}
 
-<b>Title: </b> {{object.name}}  <br>
+{% block title %}{{ object.name }} - Recipe Details{% endblock %}
 
-<b>Author: </b> {{object.created_by}} <br>
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="mb-3">Details: {{ object.name }}</h2>
 
-<b>created_at: </b> {{object.created_at}} <br>
+        <a href="{% url 'logout_success' %}" class="btn btn-danger mb-3">Logout</a>
 
-<b>cooking_time: </b> {{object.cooking_time}} <br>
+        <div class="row">
+            <!-- left：pic -->
+            <div class="col-md-5">
+                <img src="{{ object.pic.url }}" class="img-fluid rounded shadow" alt="{{ object.name }}">
+            </div>
 
-<b>ingredient_num: </b> {{object.ingredient_num}} <br>
+            <!-- right：recipe -->
+            <div class="col-md-7">
+                <h3 class="text-primary">{{ object.name }}</h3>
+                <p><strong>Author:</strong> {{ object.created_by }}</p>
+                <p><strong>Created At:</strong> {{ object.created_at }}</p>
+                <p><strong>Cooking Time:</strong> {{ object.cooking_time }} minutes</p>
+                <p><strong>Ingredient Count:</strong> {{ object.ingredient_num }}</p>
+                <p><strong>Difficulty:</strong> {{ object.difficulty }}</p>
+            </div>
+        </div>
 
-<b>difficulty: </b> {{object.difficulty}} <br>
-
-<h3>Ingredients:</h3>
-<ul>
-  {% for ingredient in ingredients %}
-    <li>{{ ingredient.ingredient.name }} - {{ ingredient.quantity }}</li>
-  {% empty %}
-    <li>No ingredients listed.</li>
-  {% endfor %}
-</ul>
+        <!-- ingrdient list -->
+        <h3 class="mt-4">Ingredients:</h3>
+        <ul class="list-group">
+            {% for ingredient in ingredients %}
+                <li class="list-group-item">{{ ingredient.ingredient.name }} - {{ ingredient.quantity }}</li>
+            {% empty %}
+                <li class="list-group-item">No ingredients listed.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
