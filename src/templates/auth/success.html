@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout Success</title>
+</head>
+<body>
+    <h1>You've successfully logged out!</h1>
+    <p>Want to try cooking something new? Here's a random recipe for you:</p>
+
+    {% if recipe %}
+        <h2>{{ recipe.name }}</h2>
+        <img src="{{ recipe.pic.url }}" alt="{{ recipe.name }}" height="200px"/>
+        <p>{{ recipe.description }}</p>
+        <p><a href="{% url 'recipes:recipe_detail' recipe.id %}">View Full Recipe</a></p>
+    {% else %}
+        <p>No recipes available at the moment.</p>
+    {% endif %}
+
+    <a href="{% url 'login' %}">Log back in</a>
+</body>
+</html>

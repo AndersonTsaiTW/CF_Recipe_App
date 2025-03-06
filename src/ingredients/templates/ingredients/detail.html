@@ -9,7 +9,7 @@
 <h3>Related Recipes:</h3>
 <ul>
   {% for recipe in recipes %}
-  <a href="{% url 'recipes:recipe-detail' recipe.recipe.id %}">
+  <a href="{% url 'recipes:recipe_detail' recipe.recipe.id %}">
     {{ recipe.recipe.name }}
   </a>
   {% empty %}

@@ -23,12 +23,12 @@ class RecipeModelTest(TestCase):
 
     def test_get_absolute_url(self):
         """ Test get_absolute_url() """
-        expected_url = reverse('recipes:recipe-detail', kwargs={'pk': self.recipe.pk})
+        expected_url = reverse('recipes:recipe_detail', kwargs={'pk': self.recipe.pk})
         self.assertEqual(self.recipe.get_absolute_url(), expected_url)
 
     def test_recipe_detail_view(self):
         """ Test Recipe Detail View """
-        response = self.client.get(reverse('recipes:recipe-detail', kwargs={'pk': self.recipe.pk}))
+        response = self.client.get(reverse('recipes:recipe_detail', kwargs={'pk': self.recipe.pk}))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.recipe.name)
         self.assertTemplateUsed(response, 'recipes/detail.html')

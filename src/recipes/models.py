@@ -40,4 +40,4 @@ class Recipe(models.Model):
         super().save(*args, **kwargs)  # call save() and save data
 
     def get_absolute_url(self):
-        return reverse('recipes:recipe-detail', kwargs={'pk': self.pk})
+        return reverse('recipes:recipe_detail', kwargs={'pk': self.pk})
