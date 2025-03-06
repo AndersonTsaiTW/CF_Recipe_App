@@ -23,11 +23,16 @@ from recipes.views import home
 from django.conf import settings
 from django.conf.urls.static import static
 
+from .views import login_view, logout_success
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('recipes/', include('recipes.urls')),
-    path('ingredients/', include('ingredients.urls'))
+    path('ingredients/', include('ingredients.urls')),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_success, name='logout_success'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
