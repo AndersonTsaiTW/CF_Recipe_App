@@ -1,9 +1,11 @@
 import pandas as pd
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 # to display lists and details
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Recipe  # to access Recipe model
 from .forms import IngredientSearchForm
+from .forms import RecipeForm, RecipeIngredientForm, inlineformset_factory
 from .utils import generate_chart
 
 from recipesingredients.models import RecipeIngredient
@@ -11,6 +13,9 @@ from ingredients.models import Ingredient
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+
+from django.forms import formset_factory
+
 
 
 # Welcome page
@@ -60,7 +65,7 @@ def ingredient_search(request):
 
         # 1️. Pie Chart (Search by Ingredient)
         if "ingredient" in request.GET and form.is_valid():
-            ingredient_name = form.cleaned_data["ingredient"].strip()
+            ingredient_name = form.cleaned_data["ingredient"]
 
             # check ingredient_name
             if not ingredient_name:
@@ -120,3 +125,56 @@ def ingredient_search(request):
         "error": error,
         "recipes_df": recipes_df_html
     })
+
+
+class RecipeCreateView(LoginRequiredMixin, CreateView):
+    model = Recipe
+    form_class = RecipeForm
+    template_name = "recipes/recipe_form.html"
+    success_url = reverse_lazy('recipes:recipe_list')
+
+    def form_valid(self, form):
+        """儲存 Recipe 並轉跳到新增 RecipeIngredient 的頁面"""
+        form.instance.created_by = self.request.user
+        self.object = form.save()  # store Recipe
+
+        # direct to RecipeIngredient
+        return redirect('recipes:recipe_add_ingredients', recipe_id=self.object.pk)
+
+class RecipeIngredientCreateView(LoginRequiredMixin, CreateView):
+    template_name = "recipes/recipe_ingredient_form.html"
+    
+    def get(self, request, recipe_id):
+        """show RecipeIngredient"""
+        recipe = Recipe.objects.get(pk=recipe_id)
+        ingredient_num = recipe.ingredient_num  # get ingredient num
+        IngredientFormSet = formset_factory(RecipeIngredientForm, extra=ingredient_num)  # generate
+        formset = IngredientFormSet()
+        return render(request, self.template_name, {"formset": formset, "recipe": recipe})
+
+    def post(self, request, recipe_id):
+        """store RecipeIngredient"""
+        recipe = Recipe.objects.get(pk=recipe_id)
+        IngredientFormSet = formset_factory(RecipeIngredientForm)
+        formset = IngredientFormSet(request.POST)
+
+        if formset.is_valid():
+            for form in formset:
+                ingredient_name = form.cleaned_data.get('ingredient', '')
+                quantity = form.cleaned_data.get('quantity', '')
+
+                if not ingredient_name or not quantity:
+                    continue
+
+    
+                ingredient, created = Ingredient.objects.get_or_create(name=ingredient_name)
+
+                recipe_ingredient = form.save(commit=False)
+                recipe_ingredient.ingredient = ingredient  #  `Ingredient` Model instance
+                recipe_ingredient.recipe = recipe
+                recipe_ingredient.save()
+
+            return redirect('recipes:recipe_list')  # store and go to Recipe list
+        
+        return render(request, self.template_name, {"formset": formset, "recipe": recipe})
+
