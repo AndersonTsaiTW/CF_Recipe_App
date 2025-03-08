@@ -1,4 +1,5 @@
 # 🍽️ Recipe App
+This repo is the version for local testing, so it uses SQLite instead of MySQL or PostgreSQL.
 
 ## 📌 Introduction
 The **Recipe App** is a web-based platform built using **Django**, designed to help users create, manage, and search for recipes. The app allows users to add ingredients, specify cooking times, and automatically calculates the difficulty level based on predefined logic.
@@ -84,4 +85,15 @@ myvenv\Scripts\activate     # Windows
 ## 📦 Install Dependencies
 ```bash
 pip install -r requirements.txt
+```
+
+## 🏃 Run It
+```bash
+python manage.py migrate  # Apply database migrations
+python manage.py runserver  # Start the Django development server
+```
+PS. The second time, you need to run venv first
+```bash
+source myvenv/bin/activate  # MacOS/Linux
+myvenv\Scripts\activate     # Windows
 ```
