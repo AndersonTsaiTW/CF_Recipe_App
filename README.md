@@ -1,17 +1,87 @@
-# Recipe_App
+# 🍽️ Recipe App
 
 ## 📌 Introduction
-The **Recipe Application** is a web-based platform built with **Django** that allows users to create, manage, and search for recipes. Users can input ingredients, specify cooking times, and the app will automatically determine the recipe's difficulty level.
+The **Recipe App** is a web-based platform built using **Django**, designed to help users create, manage, and search for recipes. The app allows users to add ingredients, specify cooking times, and automatically calculates the difficulty level based on predefined logic.
 
-This project follows best practices in **web development with Django**, including **database management**, **user authentication**, and **data processing**. It provides an interactive platform where users can contribute and explore recipes.
+This project follows best practices in **web development with Django**, including **database management**, **user authentication**, and **data processing**. The platform enables users to contribute and explore recipes while ensuring a smooth and interactive experience.
+
+🔗 **Live Demo:** [Recipe App](https://andersontsaitw.pythonanywhere.com/)
 
 ---
 
 ## 🚀 Features
-- **User Authentication**: Register, log in, and manage recipes.
-- **Recipe Management**: Create, edit, and delete recipes.
-- **Ingredient-Based Search**: Search recipes using ingredient names.
-- **Automatic Difficulty Rating**: Calculates difficulty based on ingredients and cooking time.
-- **Django Admin Panel**: Manage recipes and users through an admin dashboard.
+
+### ✅ Core Functionalities
+- **User Authentication**: Register, log in, and manage personal recipes.
+- **Recipe Management**: Users can create, edit, and delete recipes.
+- **Ingredient-Based Search**: Find recipes by searching for ingredients.
+- **Automatic Difficulty Rating**: The app automatically determines the difficulty level based on cooking time and ingredient count.
+- **Django Admin Panel**: Manage recipes, ingredients, and users via an admin dashboard.
+
+### 🎨 UI & UX Features
+- **Responsive Design**: Optimized for desktop and mobile devices.
+- **Image Uploads**: Add images for recipes and ingredients.
+- **User-Friendly Forms**: Simplified recipe entry with ingredient selection.
 
 ---
+
+## 🛠️ Tech Stack
+- **Frontend**: HTML, CSS (Bootstrap)
+- **Backend**: Django (Python)
+- **Database**: MySQL (Hosted on PythonAnywhere)
+- **Authentication**: Django’s built-in authentication system
+- **Hosting**: PythonAnywhere
+
+---
+
+## 🏗️ Project Structure
+recipeapp/
+│── recipe_project/          # Main Django project settings
+│   ├── settings.py          # Configuration settings
+│   ├── urls.py              # Main URL routing
+│   ├── wsgi.py              # WSGI for deployment
+│
+├── recipes/                 # Recipe management app
+│   ├── models.py            # Recipe models
+│   ├── views.py             # Recipe logic
+│   ├── urls.py              # Recipe routes
+│   ├── templates/           # HTML templates
+│
+├── ingredients/             # Ingredient management app
+│   ├── models.py            # Ingredient models
+│   ├── views.py             # Ingredient logic
+│   ├── urls.py              # Ingredient routes
+│
+├── static/                  # Static files (CSS, JS, images)
+├── media/                   # Uploaded images
+└── manage.py                # Django management script
+
+### 🔧 Prerequisites
+
+Ensure you have the following installed:
+
+- **Python 3.8+**
+- **Django 4+**
+- **MySQL** (or an alternative database)
+- **A virtual environment** (recommended)
+
+### 📥 Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/recipe-app.git
+cd recipe-app
+```
+
+## 🚀 Create & Activate Virtual Environment
+
+```bash
+python -m venv myvenv
+source myvenv/bin/activate  # MacOS/Linux
+myvenv\Scripts\activate     # Windows
+```
+
+
+## 📦 Install Dependencies
+```bash
+pip install -r requirements.txt
+```

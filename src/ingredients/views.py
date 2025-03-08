@@ -1,6 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView   #to display lists and details
+from django.views.generic import ListView, DetailView, CreateView   #to display lists and details
+from django.shortcuts import redirect
 from .models import Ingredient               #to access Ingredient model
+
+from .forms import IngredientForm
+from django.urls import reverse_lazy
 
 from recipesingredients.models import RecipeIngredient
 
@@ -18,3 +22,14 @@ class IngredientDetailView(DetailView):  # class-based view
         context["recipes"] = RecipeIngredient.objects.filter(
             ingredient=self.object)
         return context
+    
+
+class IngredientCreateView(CreateView):
+    model = Ingredient
+    form_class = IngredientForm
+    template_name = "ingredients/ingredient_form.html"
+
+    def form_valid(self, form):
+        """store new ingredient and go back to Recipe add ingredient page"""
+        self.object = form.save()
+        return redirect(reverse_lazy('recipes:recipe_add_ingredients', kwargs={'recipe_id': self.request.GET.get('recipe_id', 1)}))
