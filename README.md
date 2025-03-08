@@ -97,3 +97,5 @@ PS. The second time, you need to run venv first
 source myvenv/bin/activate  # MacOS/Linux
 myvenv\Scripts\activate     # Windows
 ```
+
+# 📌 Environment Variables (`SECRET_KEY`) will be generate automatically
